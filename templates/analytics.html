@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split Test Analytics Dashboard</title>
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --accent-a: #3b82f6;
+            /* Blue for A */
+            --accent-b: #9333ea;
+            /* Purple for B */
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            padding: 2rem;
+        }
+
+        .header {
+            max-width: 1000px;
+            margin: 0 auto 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .dashboard {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+        }
+
+        .card.variant-a::before {
+            background-color: var(--accent-a);
+        }
+
+        .card.variant-b::before {
+            background-color: var(--accent-b);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .badge {
+            font-size: 0.875rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            margin-left: auto;
+            font-weight: 600;
+        }
+
+        .variant-a .badge {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .variant-b .badge {
+            background: #f3e8ff;
+            color: #6b21a8;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .metric:last-child {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .metric-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .highlight {
+            font-size: 1.5rem;
+        }
+
+        .variant-a .highlight {
+            color: var(--accent-a);
+        }
+
+        .variant-b .highlight {
+            color: var(--accent-b);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div>
+            <h1>Split Test Results</h1>
+            <p style="color: var(--text-muted); margin-top: 0.5rem;">Live tracking of custom events and conversions</p>
+        </div>
+        <button onclick="window.location.reload()"
+            style="padding: 0.5rem 1rem; cursor: pointer; border-radius: 6px; border: 1px solid var(--border); background: white; font-weight: 500;">Refresh
+            Data</button>
+    </div>
+
+    <div class="dashboard">
+        <!-- Variant A -->
+        <div class="card variant-a">
+            <h2>Variant A <span class="badge">Control</span></h2>
+
+            <div class="metric">
+                <span class="metric-label">Visitors (Landing Page)</span>
+                <span class="metric-value">{{ stats.A.visitors }}</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">CTA Clicks</span>
+                <span class="metric-value">{{ stats.A.clicks }}</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">Click-Through Rate (CTR)</span>
+                <span class="metric-value">{{ stats.A.ctr }}%</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">Conversions (Thank You)</span>
+                <span class="metric-value">{{ stats.A.conversions }}</span>
+            </div>
+            <div class="metric" style="margin-top: 1rem; background: #f8fafc; padding: 1rem; border-radius: 8px;">
+                <span class="metric-label">Conversion Rate</span>
+                <span class="metric-value highlight">{{ stats.A.cvr }}%</span>
+            </div>
+        </div>
+
+        <!-- Variant B -->
+        <div class="card variant-b">
+            <h2>Variant B <span class="badge">Challenger</span></h2>
+
+            <div class="metric">
+                <span class="metric-label">Visitors (Landing Page)</span>
+                <span class="metric-value">{{ stats.B.visitors }}</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">CTA Clicks</span>
+                <span class="metric-value">{{ stats.B.clicks }}</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">Click-Through Rate (CTR)</span>
+                <span class="metric-value">{{ stats.B.ctr }}%</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">Conversions (Thank You)</span>
+                <span class="metric-value">{{ stats.B.conversions }}</span>
+            </div>
+            <div class="metric" style="margin-top: 1rem; background: #f8fafc; padding: 1rem; border-radius: 8px;">
+                <span class="metric-label">Conversion Rate</span>
+                <span class="metric-value highlight">{{ stats.B.cvr }}%</span>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

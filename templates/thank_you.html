@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You!</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #10b981;
+            /* Emerald green */
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 3rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-sizing: border-box;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .icon {
+            font-size: 4rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .debug-info {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            text-align: left;
+        }
+
+        .debug-info code {
+            color: var(--accent);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+        }
+    </style>
+
+    {% if pixel_id %}
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '{{ pixel_id }}');
+        fbq('track', 'PageView');
+        fbq('track', 'Lead'); // Frontend Conversion
+    </script>
+    {% endif %}
+
+    <script>
+        function sendServerEvent(eventName) {
+            let fbp = document.cookie.split('; ').find(row => row.startsWith('_fbp='))?.split('=')[1] || null;
+            let fbc = document.cookie.split('; ').find(row => row.startsWith('_fbc='))?.split('=')[1] || null;
+
+            fetch('/api/record_event', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event_name: eventName, fbp: fbp, fbc: fbc })
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // This triggers the server side Lead CAPI event!
+            sendServerEvent('visitedThankYouPage');
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="icon">✓</div>
+        <h1>You're In!</h1>
+        <p>Thank you for taking action. Check your inbox over the next few minutes for the exclusive access link.</p>
+
+        <div class="debug-info">
+            <p><strong>Debug Info (For Testing):</strong></p>
+            <p>Assigned Variant: <code>{{ variant }}</code></p>
+            <p>UTM Source: <code>{{ utms.utm_source or 'None' }}</code></p>
+            <p>UTM Campaign: <code>{{ utms.utm_campaign or 'None' }}</code></p>
+        </div>
+    </div>
+</body>
+
+</html>
