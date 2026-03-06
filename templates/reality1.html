@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEO Reality | Die meisten CEOs führen blind.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'oswald': ['Oswald', 'sans-serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-dark': '#0a0a0a',
+                        'brand-orange': '#ff4500',
+                        'brand-red': '#cc3300'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+        }
+        
+        /* Logo Glow Effect */
+        .glow-line {
+            box-shadow: 0 0 10px #ff4500, 0 0 20px #ff4500, 0 0 40px #cc3300;
+        }
+
+        /* Button Glow Effect */
+        .btn-glow {
+            background: linear-gradient(135deg, #ff4500, #cc3300);
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.5), 0 0 30px rgba(255, 69, 0, 0.3);
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-glow::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 0 25px rgba(255, 69, 0, 0.8), 0 0 50px rgba(255, 69, 0, 0.5);
+        }
+
+        .btn-glow:hover::after {
+            opacity: 1;
+            left: 100%;
+        }
+
+        /* Video Player Placeholder */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            background: #000;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px -10px rgba(0,0,0,0.8), 0 0 30px rgba(255, 69, 0, 0.1);
+        }
+
+        .video-container iframe, .video-container div.placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Subtle text glow */
+        .text-glow {
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+        .text-glow-orange {
+            text-shadow: 0 0 15px rgba(255,69,0,0.5);
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Card Interactive Hover */
+        .interactive-card {
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+        .interactive-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(255, 69, 0, 0.2);
+            border-color: rgba(255, 69, 0, 0.4);
+        }
+    </style>
+</head>
+<body class="font-inter antialiased relative min-h-screen selection:bg-brand-orange selection:text-white">
+    
+    <div class="relative z-10">
+        <!-- Minimal Header -->
+        <header class="py-8 flex justify-center">
+            <!-- CSS Recreated Logo based on the image -->
+            <div class="flex flex-col items-center justify-center font-oswald text-white uppercase tracking-wider relative">
+                <span class="text-4xl md:text-5xl font-bold leading-none mb-[-2px]">CEO</span>
+                <span class="text-4xl md:text-5xl font-bold leading-none z-10">Reality</span>
+                <!-- Glowing Underline -->
+                <div class="w-[120%] h-[3px] bg-gradient-to-r from-transparent via-brand-orange to-transparent mt-1 glow-line rounded-full relative z-0"></div>
+            </div>
+        </header>
+
+        <!-- Main VSL Section -->
+        <main class="container mx-auto px-4 max-w-5xl pt-4 pb-20">
+            
+            <!-- Headline Area -->
+            <div class="text-center mb-10 reveal">
+                <h1 class="font-oswald text-4xl md:text-6xl lg:text-7xl font-bold mb-6 uppercase tracking-tight text-glow leading-tight">
+                    Die meisten CEOs <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red text-glow-orange">führen blind.</span>
+                </h1>
+                <p class="text-lg md:text-2xl text-gray-300 font-light max-w-3xl mx-auto">
+                    Warum 200.000 Euro Umsatz im Monat kein Erfolg ist – und wie du aufhörst zu raten und anfängst zu führen.
+                </p>
+            </div>
+
+            <!-- Video Player Placeholder -->
+            <div class="max-w-4xl mx-auto mb-12 reveal" style="transition-delay: 0.1s;">
+                <div class="video-container group cursor-pointer relative">
+                    <!-- Fake Video Thumbnail / Player -->
+                    <div class="placeholder flex flex-col items-center justify-center bg-gradient-to-b from-[#111] to-black">
+                        <!-- Play Button -->
+                        <div class="w-20 h-20 md:w-24 md:h-24 bg-brand-orange rounded-full flex items-center justify-center pl-2 btn-glow transition-transform transform group-hover:scale-110 z-10">
+                            <i data-lucide="play" class="w-10 h-10 md:w-12 md:h-12 text-white fill-current"></i>
+                        </div>
+                        <p class="mt-6 text-sm md:text-base text-gray-400 font-light tracking-widest uppercase group-hover:text-white transition-colors">Video abspielen</p>
+                        
+                        <!-- Overlay Gradient -->
+                        <div class="absolute inset-0 bg-brand-orange opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Primary Call to Action -->
+            <div class="text-center mb-24 max-w-2xl mx-auto reveal" style="transition-delay: 0.2s;">
+                <p class="text-sm text-gray-400 mb-4 uppercase tracking-widest">Nur für qualifizierte Geschäftsführer</p>
+                <a href="#bewerbung" class="btn-glow inline-block w-full sm:w-auto px-8 py-5 md:px-12 md:py-6 rounded text-xl md:text-2xl font-bold font-oswald uppercase tracking-wide text-white">
+                    Jetzt auf Realität prüfen & bewerben
+                </a>
+                <p class="mt-4 text-sm text-gray-500 flex items-center justify-center gap-2">
+                    <i data-lucide="shield-alert" class="w-4 h-4"></i>
+                    Streng limitiert: Wir nehmen nur 10 CEOs pro Quartal.
+                </p>
+            </div>
+
+            <!-- Copy / Script Extraction Section -->
+            <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto border-t border-gray-800 pt-16">
+                <div class="reveal interactive-card p-6 md:p-8 rounded-xl border border-transparent hover:border-brand-orange/20 hover:bg-white/5">
+                    <h2 class="font-oswald text-3xl md:text-4xl font-bold mb-6 uppercase">Die bittere Wahrheit</h2>
+                    <div class="space-y-6 text-gray-300 font-light leading-relaxed">
+                        <p>Egal ob ein Unternehmen 50.000 Euro im Monat macht oder 500.000. Die meisten CEOs können nicht erklären, warum ihr Unternehmen überhaupt funktioniert.</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <i data-lucide="x-circle" class="w-6 h-6 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                <span>Du kennst deinen Umsatz, hast aber niemals eine <strong>echte Profitkalkulation</strong> gemacht.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i data-lucide="x-circle" class="w-6 h-6 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                <span>Du behältst Mitarbeiter, die keine A-Player sind, weil du selbst nicht einschätzen kannst, ob sie kompetent sind.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i data-lucide="x-circle" class="w-6 h-6 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                <span>Entscheidungen werden zu spät oder rein nach Bauchgefühl getroffen.</span>
+                            </li>
+                        </ul>
+                        <p class="text-xl font-semibold text-white mt-6 border-l-4 border-brand-orange pl-4">
+                            Du hast kein Vertriebsproblem. Du hast ein Kompetenzproblem.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-[#111] p-8 rounded-lg border border-gray-800 relative overflow-hidden reveal interactive-card" style="transition-delay: 0.1s;">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-orange opacity-5 blur-3xl rounded-full"></div>
+                    <h2 class="font-oswald text-3xl font-bold mb-6 uppercase text-brand-orange">Das Programm</h2>
+                    <p class="text-gray-300 mb-6 font-light">
+                        CEO Reality ist kein Massenprogramm. Kein günstiger Online-Kurs. Es ist ein privates 1-auf-1-Programm für Unternehmer. <strong>In 120 Tagen.</strong>
+                    </p>
+                    <div class="space-y-3 font-medium text-white mb-8">
+                        <div class="flex items-center gap-3"><i data-lucide="check" class="text-brand-orange w-5 h-5"></i> Marketing Bewertung</div>
+                        <div class="flex items-center gap-3"><i data-lucide="check" class="text-brand-orange w-5 h-5"></i> Sales Mastery</div>
+                        <div class="flex items-center gap-3"><i data-lucide="check" class="text-brand-orange w-5 h-5"></i> Skalierbares Fulfillment</div>
+                        <div class="flex items-center gap-3"><i data-lucide="check" class="text-brand-orange w-5 h-5"></i> Datenbasierte Mitarbeiterführung</div>
+                        <div class="flex items-center gap-3"><i data-lucide="check" class="text-brand-orange w-5 h-5"></i> Echte Zahlen & Profitkalkulation</div>
+                    </div>
+                    <div class="p-4 bg-brand-dark rounded border border-brand-orange/30">
+                        <p class="text-sm text-gray-400 italic">"Ich garantiere dir: Jeder Monat, in dem du dein Unternehmen nicht verstehst, kostet dich extrem viel Geld. Jede falsche Einstellung. Jede zu späte Kündigung. Jede falsche Preisentscheidung."</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final CTA / Urgency -->
+            <div id="bewerbung" class="mt-24 text-center max-w-3xl mx-auto bg-gradient-to-b from-transparent to-[#111] p-8 md:p-12 border-t border-b border-gray-800 reveal">
+                <h2 class="font-oswald text-3xl md:text-5xl font-bold mb-6 uppercase">Choose Wisely.</h2>
+                <p class="text-gray-300 text-lg mb-8 font-light">
+                    Auf deinem aktuellen Level zu bleiben ist nicht nur schlecht für dein Unternehmen. Es ist verantwortungslos. Dein Unternehmen braucht Führung.
+                    Wirst du darüber nachdenken? Oder entscheidest du dich heute wie ein echter CEO?
+                </p>
+                <a href="#" class="btn-glow inline-block w-full sm:w-auto px-10 py-5 rounded text-xl font-bold font-oswald uppercase tracking-wide text-white">
+                    Jetzt als CEO bewerben
+                </a>
+                <p class="mt-6 text-xs text-gray-500 uppercase tracking-widest">
+                    Dieses Programm ist nichts für 99% der Zuschauer. Es ist teuer. Und das ist so gewollt.
+                </p>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-gray-900 py-8 mt-12 text-center text-gray-600 text-sm">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-4">
+                    <a href="#" class="hover:text-white transition-colors">Impressum</a>
+                    <a href="#" class="hover:text-white transition-colors">Datenschutz</a>
+                    <a href="#" class="hover:text-white transition-colors">AGB</a>
+                </div>
+                <p>&copy; 2026 CEO Reality. Alle Rechte vorbehalten.</p>
+                <p class="mt-2 text-xs max-w-xl mx-auto opacity-50">Die in diesem VSL geteilten Ergebnisse sind nicht typisch. Deine Ergebnisse hängen von deiner Arbeitsmoral, Erfahrung und deinem Fokus ab. Jegliches Geschäft birgt Risiken.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Initialize Icons -->
+    <script>
+        lucide.createIcons();
+
+        // Scroll Reveal Interactivity
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
