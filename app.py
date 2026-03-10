@@ -209,6 +209,20 @@ def api_record_event():
 
     return jsonify({'status': 'success'})
 
+@app.route('/<page_name>')
+def serve_static_page(page_name):
+    # Security check to prevent directory traversal
+    if ".." in page_name or "/" in page_name:
+        return "Invalid page", 400
+        
+    try:
+        if not page_name.endswith('.html'):
+            page_name += '.html'
+        # Doesn't pass variants or utms, serving the template purely as requested
+        return render_template(page_name)
+    except Exception:
+        return "Page not found", 404
+
 @app.route('/analytics')
 def analyticsDashboard():
     db_session = SessionLocal()
